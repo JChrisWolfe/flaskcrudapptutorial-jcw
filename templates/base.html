@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--
+    Let's talk about template inheritance.
+    You create one master HTML file that contains the skeleton of the format of the webpage.
+    You inheritate that format in each other pages and insert code you need in each different page.
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- For things printed in strings use the brackets like shown below-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <!--This is Jinja2 syntax, it's a template engine that flask uses. -->
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <!-- This syntax is how we will insert our Flask code into the webpage.-->
+        {% block body %}{% endblock %}
+    </body>
+</html>
