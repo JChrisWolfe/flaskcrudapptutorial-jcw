@@ -1,9 +1,41 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+<title>Task Master</title>
 {% endblock %}
 
 {% block body %}
-<h1>Template</h1>
+<div class="content">
+    <h1 style="text-align: center">Task Master</h1>
+    {% if tasks|length < 1 %} <!-- the |length is Jinja2 syntax for length of 'tasks' or whatever list you are looking at.-->
+    <h4 style="text-align: center">There are no tasks. Create one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+
+        <!-- Some more Jinja2 syntax here-->
+        {% for task in tasks %} <!--Remember 'tasks' is our app.py query output sorted by date. The for loop will list each task individually. We have to state which tags get the outputs-->
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td> <!--.date() We only want the Date not the time. Imported from datatime module.-->
+                <td>
+                    <a href="/delete/{{ task.id }}">Delete</a>
+                    <br />
+                    <a href="/update/{{ task.id }}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <!--Set action in form to our index: '/'-->
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Task">
+    </form>
+</div>
 {% endblock %}
